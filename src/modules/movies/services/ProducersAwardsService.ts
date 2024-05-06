@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import IProducersAwardsRepository from "../typeorm/repositories/IProducersAwardsRepository";
+import IProducersAwardsRepository from "../repositories/IProducersAwardsRepository";
 
 @injectable()
 export class ProducersAwardsService {

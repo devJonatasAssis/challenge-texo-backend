@@ -7,7 +7,7 @@ import { join } from "node:path";
 import "../../container";
 
 import { AppDataSource } from "../../../data-source";
-import { Movie } from "../../../entities/Movie";
+import { Movie } from "../../../modules/movies/infra/typeorm/entities/Movie";
 
 import { parse } from "csv-parse";
 import routes from "./routes";

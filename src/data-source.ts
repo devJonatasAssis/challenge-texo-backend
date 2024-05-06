@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Movie } from "./entities/Movie";
+import { Movie } from "./modules/movies/infra/typeorm/entities/Movie";
 
 export const AppDataSource = new DataSource({
   type: "sqlite",

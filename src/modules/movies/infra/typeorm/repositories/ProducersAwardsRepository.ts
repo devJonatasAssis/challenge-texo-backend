@@ -1,14 +1,14 @@
-import IProducersAwardsRepository from "../../../../modules/movies/typeorm/repositories/IProducersAwardsRepository";
-import { AppDataSource } from "../../../../../src/data-source";
-import { Movie } from "../../../../entities/Movie";
+import IProducersAwardsRepository from "../../../repositories/IProducersAwardsRepository";
+import { AppDataSource } from "../../../../../data-source";
+import { Movie } from "../entities/Movie";
 import { Repository } from "typeorm";
 
-interface ProducersProps {
+export interface ProducersProps {
   producers: string;
   year: number;
 }
 
-interface ProducerResponse {
+export interface ProducerResponse {
   producer: string;
   interval: number;
   previousWin: number;
