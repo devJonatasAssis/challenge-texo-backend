@@ -59,20 +59,20 @@ export class ProducersAwardsRepository implements IProducersAwardsRepository {
       }
     );
 
-    const formatResultProduceAwards = Object.keys(
-      groupProducersAwardsYears
-    ).map((item) => {
-      return {
-        producer: item,
-        years: groupProducersAwardsYears[item],
-      };
-    });
+    const resultProduceAwards = Object.keys(groupProducersAwardsYears).map(
+      (item) => {
+        return {
+          producer: item,
+          years: groupProducersAwardsYears[item],
+        };
+      }
+    );
 
-    formatResultProduceAwards.forEach(({ producer, years }, index) => {
+    resultProduceAwards.forEach(({ producer, years }, index) => {
       if (index > 1 && years.length === 2) {
         const subtractedYears = Number(years[1]) - Number(years[0]);
 
-        const result: ProducerResponse = {
+        const result: any = {
           producer,
           interval: subtractedYears,
           previousWin: Number(years[0]),
@@ -82,16 +82,19 @@ export class ProducersAwardsRepository implements IProducersAwardsRepository {
         if (!maxInterval && !minInterval) {
           maxInterval = subtractedYears;
           minInterval = subtractedYears;
+
+          maxResult = result;
+          minResult = result;
         }
 
         if (maxInterval && maxInterval < subtractedYears) {
           maxInterval = subtractedYears;
-          maxResult.push(result);
+          maxResult = result;
         }
 
-        if (minInterval && minInterval >= subtractedYears) {
+        if (minInterval && minInterval > subtractedYears) {
           minInterval = subtractedYears;
-          minResult.push(result);
+          minResult = result;
         }
       }
     });
@@ -116,30 +119,9 @@ export class ProducersAwardsRepository implements IProducersAwardsRepository {
       filterProducersAlreadyAwards
     );
 
-    const orderMinResultByInterval = minResult.sort((a, b) => {
-      if (a.interval > b.interval) {
-        return 1;
-      }
-
-      if (a.interval < b.interval) {
-        return -1;
-      }
-      return 0;
-    });
-
-    const orderMaxResultByInterval = maxResult.sort((a, b) => {
-      if (a.interval > b.interval) {
-        return 1;
-      }
-      if (a.interval < b.interval) {
-        return -1;
-      }
-      return 0;
-    });
-
     return {
-      min: orderMinResultByInterval,
-      max: orderMaxResultByInterval,
+      min: [minResult],
+      max: [maxResult],
     };
   }
 }
