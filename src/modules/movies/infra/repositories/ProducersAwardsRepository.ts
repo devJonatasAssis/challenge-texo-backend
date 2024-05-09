@@ -1,7 +1,5 @@
-import IProducersAwardsRepository from "../../../repositories/IProducersAwardsRepository";
-import { AppDataSource } from "../../../../../data-source";
-import { Movie } from "../entities/Movie";
-import { Repository } from "typeorm";
+import IProducersAwardsRepository from '../../repositories/IProducersAwardsRepository';
+import { Movie } from '../../schema';
 
 export interface ProducersProps {
   producers: string;
@@ -16,12 +14,6 @@ export interface ProducerResponse {
 }
 
 export class ProducersAwardsRepository implements IProducersAwardsRepository {
-  private ormRepository: Repository<Movie>;
-
-  constructor() {
-    this.ormRepository = AppDataSource.getRepository(Movie);
-  }
-
   private getYearsInterval(producers: any) {
     let maxInterval: number | undefined;
     let minInterval: number | undefined;
@@ -32,11 +24,11 @@ export class ProducersAwardsRepository implements IProducersAwardsRepository {
     let resultProducers: any[] = [];
 
     producers.forEach((items: ProducersProps) => {
-      const producersSplit = items.producers.split(", ");
+      const producersSplit = items.producers.split(', ');
 
       const listProducers = producersSplit.map((item: any) => {
         return {
-          producer: item.split(" and "),
+          producer: item.split(' and '),
           year: items.year,
         };
       });
@@ -56,16 +48,16 @@ export class ProducersAwardsRepository implements IProducersAwardsRepository {
         if (!acc[producer]) acc[producer] = [];
         acc[producer].push(year);
         return acc;
-      }
+      },
     );
 
     const resultProduceAwards = Object.keys(groupProducersAwardsYears).map(
-      (item) => {
+      item => {
         return {
           producer: item,
           years: groupProducersAwardsYears[item],
         };
-      }
+      },
     );
 
     resultProduceAwards.forEach(({ producer, years }, index) => {
@@ -103,20 +95,20 @@ export class ProducersAwardsRepository implements IProducersAwardsRepository {
   }
 
   async show(): Promise<any> {
-    const findAllProducers = await this.ormRepository.find();
+    const findAllProducers = await Movie.find();
 
     const filterProducersAlreadyAwards = findAllProducers
-      .filter((value) => value.winner === "yes")
-      .map((value) => ({
+      .filter(value => value.winner === 'yes')
+      .map(value => ({
         year: value.year,
         producers: value.producers,
       }));
 
     if (!filterProducersAlreadyAwards)
-      throw new Error("There is not producers list");
+      throw new Error('There is not producers list');
 
     const { minResult, maxResult } = this.getYearsInterval(
-      filterProducersAlreadyAwards
+      filterProducersAlreadyAwards,
     );
 
     return {
