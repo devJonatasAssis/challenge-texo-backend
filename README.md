@@ -1,62 +1,71 @@
-# Projeto Node.js com Express, Jest, TypeScript
+markdown
+Copy code
 
-Este é um exemplo básico de um projeto Node.js que utiliza o framework Express para criar uma API RESTful, Jest para testes unitários, TypeScript para tipagem estática.
+# Projeto Challenge Texo Backend utilizando Node.js com Express, TypeScript, MongoDB Memory Server, csvtojson, Jest e SuperTest
 
-## Pré-requisitos
-
-- Node.js
-- NPM (Node Package Manager)
+Este é um projeto que lista os indicados e vencedores da categoria Pior Filme do Golden Raspberry Awards. As bibliotecas são Node.js utilizando Express e TypeScript, com integração de testes usando Jest e SuperTest, e um banco de dados MongoDB em memória usando MongoDB Memory Server. Além disso, o projeto utiliza a biblioteca csvtojson para converter arquivos CSV em JSON.
 
 ## Instalação
 
-1. Clone o repositório:
+Certifique-se de ter o Node.js e o npm instalados em sua máquina. Você pode baixá-los e instalá-los a partir do [site oficial do Node.js](https://nodejs.org/).
 
-   ```
+1. Clone este repositório:
+   ```bash
    git clone https://github.com/devJonatasAssis/challenge-texo-backend.git
-   ```
-
-2. Navegue até o diretório do projeto:
-
-   ```
+   Instale as dependências do projeto:
+   bash
+   Copy code
    cd challenge-texo-backend
-   ```
-
-3. Instale as dependências:
-
-   ```
    npm install
+   Configuração
    ```
 
-## Uso
+Este projeto utiliza MongoDB Memory Server para facilitar o desenvolvimento local sem a necessidade de um servidor de banco de dados MongoDB instalado.
 
-1. Inicie o servidor:
+Uso
 
-   ```
-   npm start
-   ```
+Para iniciar o servidor, execute o seguinte comando:
 
-2. Ao executar o projeto, irá criar uma pasta chamada database, onde irá ficar armazenada as informações.
+bash
+Copy code
+npm start
+Para executar os testes, utilize o comando:
 
-3. A API será executada em `http://localhost:3333`.
-
-4. Para verificar o enpoint que exibe os produtores com maior intervalo entre dois prêmios consecutivos, e o que obteve dois prêmios mais rápido acesse a API em `http://localhost:3333/movies/awards`
-
-## Testes
-
-Para executar os testes unitários:
-
-```
+bash
+Copy code
 npm test
-```
+Tecnologias Utilizadas
 
-## Contribuição
+Node.js: Plataforma de desenvolvimento JavaScript do lado do servidor.
+Express: Framework web para Node.js.
+TypeScript: Superset tipado de JavaScript.
+MongoDB Memory Server: Servidor de banco de dados MongoDB em memória para desenvolvimento.
+csvtojson: Biblioteca para converter arquivos CSV em JSON.
+Jest: Framework de teste para JavaScript e TypeScript.
+SuperTest: Biblioteca de testes de integração para aplicativos Express.
+Rota para teste
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
+bash
+Copy code
+GET /movies/produces-awards
+Resultado esperado
 
-## Licença
-
-Este projeto está licenciado sob a [MIT License](https://opensource.org/licenses/MIT).
-
----
-
-Este é um README básico e pode ser expandido conforme necessário, incluindo informações adicionais sobre a estrutura do projeto, endpoints da API, exemplos de uso, entre outros detalhes.
+bash
+{
+"min": [
+{
+"producer": "Joel Silver",
+"interval": 1,
+"previousWin": 1990,
+"followingWin": 1991
+}
+],
+"max": [
+{
+"producer": "Matthew Vaughn",
+"interval": 13,
+"previousWin": 2002,
+"followingWin": 2015
+}
+]
+}
