@@ -1,9 +1,21 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { app } from "../../../../../shared/infra/http/app";
-import request from "supertest";
 import mongoose from "mongoose";
 import { Movie } from "../../../../../modules/movies/schema";
-import { mockMovielist } from "../../helper/mockMovielist";
+import { join } from "path";
+import csv from "csvtojson/v2";
+import request from "supertest";
+
+const file = join(
+  __dirname,
+  "..",
+  "..",
+  "..",
+  "..",
+  "..",
+  "..",
+  "movielist.csv"
+);
 
 describe("Movie Test - GET /movies/producers-awards", () => {
   let mongodb: MongoMemoryServer;
@@ -13,14 +25,17 @@ describe("Movie Test - GET /movies/producers-awards", () => {
     const uri = mongodb.getUri();
     await mongoose.connect(uri, { dbName: "texo-challenge" });
 
-    for (const value of mockMovielist) {
+    const movieListArray = await csv({ delimiter: ";" }).fromFile(file);
+
+    for (const value of movieListArray) {
       const movie = new Movie({
+        title: value.title,
+        year: value.year,
         producers: value.producers,
         studios: value.studios,
-        title: value.title,
         winner: value.winner,
-        year: value.year,
       });
+
       await movie.save();
     }
   });
