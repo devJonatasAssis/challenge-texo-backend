@@ -6,5 +6,4 @@ export default async function connect() {
   const mongoURI = mongoServer.getUri();
 
   await mongoose.connect(mongoURI, { dbName: "texo-challenge" });
-  console.log(`MongoDB in Memory successfully connected to ${mongoURI}`);
 }

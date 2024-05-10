@@ -2,7 +2,7 @@ import { ProducersAwardsService } from "../../../../../modules/movies/services/P
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-export default class ProducersAwardsController {
+export class ProducersAwardsController {
   public async show(request: Request, response: Response): Promise<Response> {
     const showProducersAwards = container.resolve(ProducersAwardsService);
 

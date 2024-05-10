@@ -1,4 +1,4 @@
-export const mockListProducersAwards = [
+export const mockMovielist = [
   {
     year: 1980,
     title: "Can't Stop the Music",
