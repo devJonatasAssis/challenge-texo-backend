@@ -25,8 +25,5 @@ connect()
       }
     })
     .then(() => {
-      console.log('DB In Memory successfully initialized.')
-    })
-    .then(() => {
       app.listen(PORT, () => console.log(`🚀 Server is running on port ${PORT}`))
     });
